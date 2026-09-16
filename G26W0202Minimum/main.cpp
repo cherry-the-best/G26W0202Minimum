@@ -1,15 +1,28 @@
 ﻿#include <afxwin.h>
 //CWinApp app;  // 반드시 주석 처리할 것!!!!!!
 
-class MyApp : public CWinApp {              // sub class : super class     1번 
+class MyApp : public CWinApp {
 public:
-	virtual BOOL InitInstance();           // java는 virtual 없어도 됨 (오버라이딩)    2번 
+	virtual BOOL InitInstance();
+};
+
+class CMainWnd : public CFrameWnd {     // 내가 만든 건 Main 재정의 : 상속 마소에서 만든 게 Frame 
+public:
+	CMainWnd();
 };
 
 BOOL MyApp::InitInstance() {
-	AfxMessageBox(L"파생 클래스의 InitInstance() 재정의");       //MessageBox 그냥 메시지 박스 
+	//AfxMessageBox(L"파생 클래스의 InitInstance() 재정의");
+
+	m_pMainWnd = new CMainWnd();
+	m_pMainWnd->ShowWindow(m_nCmdShow);
+	m_pMainWnd->UpdateWindow();
 
 	return TRUE;
+}
+
+CMainWnd::CMainWnd() {
+	Create(NULL, L"GUI 프로그래밍");
 }
 
 MyApp app;
